@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Gallery | 踊り場</title>
+<meta name="description" content="気になった振付・パフォーマンスの記録ギャラリー。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0c0c0c;
+    --black2: #171717;
+    --black3: #212121;
+    --yellow: #FBE300;
+    --yellow-dim: #C9AE00;
+    --pink: #FF2E92;
+    --chrome: #ECECEC;
+    --off: #EFEDE6;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--black);
+    color: var(--off);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  a{ color: inherit; text-decoration:none; }
+
+  .light-field{ position: fixed; inset: 0; pointer-events: none; z-index: 1; mix-blend-mode: screen; opacity: 0.55; }
+  .spot{ position:absolute; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(251,227,0,0.9) 0%, rgba(251,227,0,0) 70%); filter: blur(2px); animation: drift 26s linear infinite; }
+  .spot:nth-child(1){ top:8%; left:-10%; animation-duration: 22s; }
+  .spot:nth-child(2){ top:40%; left:-15%; width:90px; height:90px; background: radial-gradient(circle, rgba(255,46,146,0.75) 0%, rgba(255,46,146,0) 70%); animation-duration: 31s; animation-delay: -6s; }
+  .spot:nth-child(3){ top:70%; left:-20%; width:60px; height:60px; animation-duration: 19s; animation-delay: -3s; }
+  .spot:nth-child(4){ top:20%; left:-25%; width:45px; height:45px; background: radial-gradient(circle, rgba(236,236,236,0.6) 0%, rgba(236,236,236,0) 70%); animation-duration: 27s; animation-delay: -14s; }
+  .spot:nth-child(5){ top:85%; left:-5%; width:110px; height:110px; animation-duration: 36s; animation-delay: -20s; }
+  @keyframes drift{ from{ transform: translateX(0) translateY(0); } to{ transform: translateX(140vw) translateY(30vh); } }
+
+  header{ position: relative; z-index: 5; display:flex; justify-content:space-between; align-items:center; padding: 22px 6vw; border-bottom: 1px solid rgba(251,227,0,0.15); }
+  .logo{ font-family:'Bungee', sans-serif; font-size: 1.15rem; color: var(--yellow); letter-spacing: 1px; }
+  nav ul{ display:flex; gap: clamp(14px, 3vw, 32px); list-style:none; }
+  nav a{ font-family:'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--off); opacity: 0.8; position: relative; padding-bottom: 4px; transition: opacity 0.2s, color 0.2s; }
+  nav a:hover{ opacity:1; color: var(--yellow); }
+  nav a.active{ color: var(--yellow); opacity:1; }
+  nav a.active::after{ content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background: var(--yellow); }
+
+  .page-hero{ position: relative; z-index: 2; padding: 70px 6vw 50px; text-align:center; }
+  .eyebrow{ font-family:'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--yellow-dim); margin-bottom: 22px; }
+  .page-title{
+    font-family:'Bungee', sans-serif;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    color: var(--yellow);
+    text-shadow: 3px 3px 0 var(--pink), 6px 6px 0 var(--black);
+    display:flex; flex-wrap:wrap; justify-content:center; gap: 0.02em;
+  }
+  .page-title span{ display:inline-block; }
+  .page-title span:nth-child(odd){ transform: rotate(-3deg) translateY(2px); }
+  .page-title span:nth-child(even){ transform: rotate(2deg) translateY(-3px); }
+  .drip{ width: min(50vw, 320px); height: 8px; margin: 20px auto 0; background: linear-gradient(90deg, var(--pink), var(--yellow)); border-radius: 4px; position: relative; }
+  .drip::before, .drip::after{ content:""; position:absolute; bottom:-14px; width: 7px; height: 18px; background: var(--yellow); border-radius: 0 0 6px 6px; }
+  .drip::before{ left: 22%; height: 22px; background: var(--pink); }
+  .drip::after{ left: 61%; }
+  .page-lead{ margin-top: 26px; font-size: 0.95rem; color: var(--off); opacity: 0.75; max-width: 46ch; margin-left:auto; margin-right:auto; line-height: 1.9; }
+
+  main{ position: relative; z-index: 2; }
+
+  .gallery{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 20px 6vw 100px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 30px;
+  }
+
+  .piece{
+    background: var(--black2);
+    border: 1px solid rgba(251,227,0,0.12);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .piece:hover{ transform: translateY(-6px); border-color: rgba(251,227,0,0.4); }
+
+  .thumb{
+    height: 170px;
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .thumb::after{
+    content:"";
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(115deg, rgba(0,0,0,0.15) 0 2px, transparent 2px 10px);
+  }
+  .thumb-note{
+    position: relative; z-index:1;
+    font-family:'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    color: rgba(12,12,12,0.55);
+    text-transform: uppercase;
+    text-align:center;
+    padding: 0 16px;
+  }
+  .t1{ background: linear-gradient(135deg, var(--yellow), #ffef6b); }
+  .t2{ background: linear-gradient(135deg, var(--pink), #ff8bc0); }
+  .t3{ background: linear-gradient(135deg, var(--chrome), #b9b9b9); }
+  .t4{ background: linear-gradient(135deg, var(--yellow-dim), var(--pink)); }
+
+  .piece-body{ padding: 22px 24px 26px; }
+  .tag{
+    font-family:'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+  .piece-body h3{
+    font-family:'Bungee', sans-serif;
+    font-size: 1.15rem;
+    color: var(--yellow);
+    margin: 10px 0 10px;
+    line-height: 1.3;
+  }
+  .piece-body p{
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--off);
+    opacity: 0.85;
+  }
+  .meta{
+    margin-top: 14px;
+    font-family:'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--yellow-dim);
+  }
+
+  footer{ position: relative; z-index: 2; padding: 70px 6vw 40px; border-top: 1px solid rgba(251,227,0,0.15); background: var(--black2); }
+  .footer-grid{ display:grid; grid-template-columns: 1.2fr 1fr; gap: 50px; max-width: 1100px; }
+  @media (max-width: 760px){ .footer-grid{ grid-template-columns: 1fr; } }
+  .footer-title{ font-family:'Bungee', sans-serif; font-size: 0.95rem; color: var(--yellow); margin-bottom: 16px; letter-spacing: 1px; }
+  .platform-list{ list-style:none; display:flex; flex-direction:column; gap: 10px; font-size: 0.9rem; }
+  .platform-list a{ opacity:0.85; transition: opacity 0.2s, color 0.2s; }
+  .platform-list a:hover{ opacity:1; color: var(--yellow); }
+  form{ display:flex; flex-direction:column; gap: 12px; max-width: 400px; }
+  form input, form textarea{ background: var(--black); border: 1px solid rgba(251,227,0,0.25); border-radius: 4px; padding: 12px 14px; color: var(--off); font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; }
+  form input:focus, form textarea:focus{ outline: 2px solid var(--yellow); outline-offset: 1px; }
+  form textarea{ resize: vertical; min-height: 90px; }
+  form button{ background: var(--yellow); color: var(--black); border: none; border-radius: 4px; padding: 12px 18px; font-family: 'Space Mono', monospace; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; transition: background 0.2s; align-self: flex-start; }
+  form button:hover{ background: var(--chrome); }
+  .notice{ margin-top: 50px; padding-top: 24px; border-top: 1px solid rgba(251,227,0,0.1); font-size: 0.75rem; line-height: 1.8; color: var(--off); opacity: 0.55; max-width: 70ch; }
+  .copyright{ margin-top: 18px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--yellow-dim); opacity: 0.7; }
+</style>
+</head>
+<body>
+
+  <div class="light-field" aria-hidden="true">
+    <div class="spot"></div>
+    <div class="spot"></div>
+    <div class="spot"></div>
+    <div class="spot"></div>
+    <div class="spot"></div>
+  </div>
+
+  <header>
+    <div class="logo">踊り場</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="eyebrow">Choreography Record</div>
+    <h1 class="page-title"><span>G</span><span>A</span><span>L</span><span>L</span><span>E</span><span>R</span><span>Y</span></h1>
+    <div class="drip"></div>
+    <p class="page-lead">気になった振付・パフォーマンス・ダンサーの記録をまとめる場所。</p>
+  </div>
+
+  <main>
+    <div class="gallery">
+
+      <article class="piece">
+        <div class="thumb t1"><span class="thumb-note">cover image / video<br>coming soon</span></div>
+        <div class="piece-body">
+          <span class="tag">Choreography</span>
+          <h3>参考にした振り 01</h3>
+          <p>目線の動かし方が印象的だった振付。同じ8カウントを何度も見返して分解中。</p>
+          <div class="meta">2026.07 ・ Style: Hip Hop</div>
+        </div>
+      </article>
+
+      <article class="piece">
+        <div class="thumb t2"><span class="thumb-note">cover image / video<br>coming soon</span></div>
+        <div class="piece-body">
+          <span class="tag">Performance</span>
+          <h3>気になったステージ映像</h3>
+          <p>フォーメーションの入れ替わりが滑らかで、切り替えのタイミングを研究したい。</p>
+          <div class="meta">2026.07 ・ Style: Jazz</div>
+        </div>
+      </article>
+
+      <article class="piece">
+        <div class="thumb t3"><span class="thumb-note">cover image / video<br>coming soon</span></div>
+        <div class="piece-body">
+          <span class="tag">Dancer</span>
+          <h3>好きなダンサーのメモ</h3>
+          <p>力の抜き方と溜めのバランスが理想的。まずは真似から始めてみる。</p>
+          <div class="meta">2026.06 ・ Style: Freestyle</div>
+        </div>
+      </article>
+
+      <article class="piece">
+        <div class="thumb t4"><span class="thumb-note">cover image / video<br>coming soon</span></div>
+        <div class="piece-body">
+          <span class="tag">Choreography</span>
+          <h3>練習中の振り</h3>
+          <p>自分の練習動画を記録用に。手の位置がまだ安定しない箇所をメモしておく。</p>
+          <div class="meta">2026.08 ・ Style: Hip Hop</div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">Azalea Creative Room</div>
+        <ul class="platform-list">
+          <li><a href="https://azaleacreativeroom888.github.io/" target="_blank" rel="noopener">Azalea Creative Room（メインサイト）</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Jump Rookie！ / Azalea72</a></li>
+          <li><a href="#" target="_blank" rel="noopener">DaysNEO / Azalea72</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Pixiv（イラスト）</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Kakuyomu（小説）</a></li>
+          <li><a href="#" target="_blank" rel="noopener">YouTube - リリポピ / LilyPopins</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-title">Contact</div>
+        <form action="https://formspree.io/f/maqvpvoz" method="POST">
+          <input type="text" name="name" placeholder="お名前" required>
+          <input type="email" name="email" placeholder="メールアドレス" required>
+          <textarea name="message" placeholder="メッセージ" required></textarea>
+          <button type="submit">送信する</button>
+        </form>
+      </div>
+    </div>
+
+    <p class="notice">
+      当サイトのコンテンツ（文章・画像を含む）は、生成AIの学習データとしての利用を禁止します。<br>
+      This site's content (including text and images) may not be used for AI training purposes.
+    </p>
+    <p class="copyright">© 踊り場 — Dance Study Notebook</p>
+  </footer>
+
+</body>
+</html>
