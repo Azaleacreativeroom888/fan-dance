@@ -177,6 +177,48 @@
   }
   .goal-mark{ font-family:'Bungee', sans-serif; color: var(--pink); flex-shrink:0; }
 
+  /* ---------- link cards ---------- */
+  .link-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
+  }
+  .link-card{
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(23,23,23,0.9), rgba(33,33,33,0.7));
+    border: 1px solid rgba(251,227,0,0.15);
+    border-radius: 5px;
+    padding: 16px 18px;
+    position: relative;
+    overflow:hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .link-card::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--yellow), var(--pink));
+  }
+  .link-card:hover{ border-color: rgba(251,227,0,0.5); transform: translateY(-3px); }
+  .link-icon{
+    font-size: 22px;
+    width: 44px; height: 44px;
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(251,227,0,0.08);
+    border: 1px solid rgba(251,227,0,0.2);
+    border-radius: 4px;
+  }
+  .link-text{ flex:1; min-width:0; }
+  .link-name{ display:block; font-size: 0.92rem; font-weight: 700; color: var(--yellow); margin-bottom: 3px; }
+  .link-desc{ display:block; font-size: 0.76rem; color: var(--off); opacity: 0.7; line-height: 1.5; }
+  .link-arrow{ font-size: 1.2rem; color: rgba(251,227,0,0.4); flex-shrink:0; transition: color 0.25s, transform 0.25s; }
+  .link-card:hover .link-arrow{ color: var(--yellow); transform: translateX(3px); }
+  @media (max-width: 700px){ .link-grid{ grid-template-columns: 1fr; } }
+
   /* ---------- form card (from reference) ---------- */
   .form-card{
     background: linear-gradient(135deg, rgba(23,23,23,0.9), rgba(33,33,33,0.7));
@@ -349,6 +391,68 @@
       <li><span class="goal-mark">04</span>練習と気づきを、途切れさせずに記録し続ける</li>
     </ul>
 
+    <p class="section-label">漫画・イラスト掲載サイト</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://rookie.shonenjump.com/users/14728546961183734555" target="_blank" rel="noopener">
+        <div class="link-icon">📚</div>
+        <div class="link-text"><span class="link-name">ジャンプルーキー</span><span class="link-desc">オリジナル漫画を掲載中</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-card" href="https://daysneo.com/author/Sam333333Sam/" target="_blank" rel="noopener">
+        <div class="link-icon">🌙</div>
+        <div class="link-text"><span class="link-name">DaysNEO</span><span class="link-desc">漫画掲載サイト</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-card" href="https://www.pixiv.net/users/105728284" target="_blank" rel="noopener">
+        <div class="link-icon">🎨</div>
+        <div class="link-text"><span class="link-name">Pixiv</span><span class="link-desc">二次創作はこちらに掲載</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+
+    <p class="section-label">SNS・その他</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://bsky.app/profile/azaleaazalea88.bsky.social" target="_blank" rel="noopener">
+        <div class="link-icon">🦋</div>
+        <div class="link-text"><span class="link-name">Bluesky</span><span class="link-desc">近況・作品のお知らせ</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-card" href="https://kakuyomu.jp/users/azalea_azalea72" target="_blank" rel="noopener">
+        <div class="link-icon">✒️</div>
+        <div class="link-text"><span class="link-name">カクヨム</span><span class="link-desc">小説を掲載中</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-card" href="https://www.youtube.com/@LilyPopins0512" target="_blank" rel="noopener">
+        <div class="link-icon">🎬</div>
+        <div class="link-text"><span class="link-name">YouTube（リリポピ）</span><span class="link-desc">動画チャンネル</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-card" href="https://lilipopi.github.io/lilypopins/" target="_blank" rel="noopener">
+        <div class="link-icon">🌸</div>
+        <div class="link-text"><span class="link-name">リリポピのホームページ</span><span class="link-desc">別サイト</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+
+    <p class="section-label">Azalea72のホームページ</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://azaleacreativeroom888.github.io/storyreviewazalea/" target="_blank" rel="noopener">
+        <div class="link-icon">📖</div>
+        <div class="link-text"><span class="link-name">書評サイト</span><span class="link-desc">本・アニメ・映画・ゲーム・小説の備忘録</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-card" href="https://azaleacreativeroom888.github.io/fan-english/" target="_blank" rel="noopener">
+        <div class="link-icon">🍔</div>
+        <div class="link-text"><span class="link-name">英語サイト（English Site）</span><span class="link-desc">英語話者と英語学習者に向けたサイト</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+      <a class="link-card" href="https://azaleacreativeroom888.github.io/fan-watercolor/" target="_blank" rel="noopener">
+        <div class="link-icon">☁️</div>
+        <div class="link-text"><span class="link-name">水彩画サイト</span><span class="link-desc">水彩画掲載</span></div>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+
     <p class="section-label">お問い合わせ</p>
     <div class="form-card">
       <p class="form-intro">ご質問・ご感想などはこちらからどうぞ。</p>
@@ -385,11 +489,11 @@
     <div class="footer-title">Azalea Creative Room</div>
     <ul class="platform-list">
       <li><a href="https://azaleacreativeroom888.github.io/" target="_blank" rel="noopener">Azalea Creative Room（メインサイト）</a></li>
-      <li><a href="#" target="_blank" rel="noopener">Jump Rookie！ / Azalea72</a></li>
-      <li><a href="#" target="_blank" rel="noopener">DaysNEO / Azalea72</a></li>
-      <li><a href="#" target="_blank" rel="noopener">Pixiv（イラスト）</a></li>
-      <li><a href="#" target="_blank" rel="noopener">Kakuyomu（小説）</a></li>
-      <li><a href="#" target="_blank" rel="noopener">YouTube - リリポピ / LilyPopins</a></li>
+      <li><a href="https://rookie.shonenjump.com/users/14728546961183734555" target="_blank" rel="noopener">Jump Rookie！ / Azalea72</a></li>
+      <li><a href="https://daysneo.com/author/Sam333333Sam/" target="_blank" rel="noopener">DaysNEO / Azalea72</a></li>
+      <li><a href="https://www.pixiv.net/users/105728284" target="_blank" rel="noopener">Pixiv（イラスト）</a></li>
+      <li><a href="https://kakuyomu.jp/users/azalea_azalea72" target="_blank" rel="noopener">Kakuyomu（小説）</a></li>
+      <li><a href="https://www.youtube.com/@LilyPopins0512" target="_blank" rel="noopener">YouTube - リリポピ / LilyPopins</a></li>
     </ul>
 
     <p class="notice">
